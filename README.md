@@ -3,13 +3,16 @@
 How to install ovs in docker containers
 ------------------------------------
 
-###Check if docker has been installed 
+##Check if docker has been installed 
+``` python
 docker --version
 sudo apt install docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl status docker
 docker run hello-world
+```
+
 
 sudo docker images 
 sudo docker ps -a
