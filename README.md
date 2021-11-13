@@ -1,9 +1,8 @@
 # SDN-ovs-switches
-
 How to install ovs in docker containers
 ------------------------------------
 
-##Check if docker has been installed 
+## Check if docker has been installed 
 ``` python
 docker --version
 sudo apt install docker.io
@@ -20,7 +19,7 @@ sudo docker ps -a
 docker pull ubuntu
 
 
-##Remove an imagen 
+## Remove an imagen 
 sudo docker rmi <id-of-image>
 
 ## Remove a docker container
