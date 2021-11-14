@@ -1,12 +1,12 @@
 # How to install ovs in docker containers (SDN-OVS switches)
 
 
-Hey guys, here we have the step by step process to install OVS over docker containers. You can also use the same commands over any linux-virtual machines. 
-If you have any problem, please let me know.
+Hey guys, here we have the step-by-step process to install OVS over docker containers. You can also use the same commands over any Linux-virtual machine. 
+If you have any problems, please let me know.
 
-Here the youtube tutorial: 
+Here is the youtube tutorial: 
 
-Check if docker has been installed 
+Check if Docker has been installed 
 ``` python
 docker --version
 ```
@@ -30,7 +30,7 @@ To pull images from Docker hub. Let's pull a basic Ubuntu
 docker pull ubuntu
 ```
 
-In case of you want to delete an imagen 
+In case you want to delete an image 
 ``` python
 sudo docker rmi <id-of-image>
 ```
@@ -40,7 +40,7 @@ sudo docker rm -f <id-of-container>
 ```
 
 ## To run and execute a container with the image
-To run a docker with an specific image
+To run a docker with a specific image
 ``` python
 sudo docker run -itd --name=sw-ovs10 ubuntu
 ```
@@ -148,7 +148,7 @@ ovs-vswitchd&
 ovs-vsctl&
 
 ```
-Make sure you obtain these two services up, the ovsdb-server andd ovs-vswitchd
+Make sure you obtain these two services up, the ovsdb-server and ovs-vswitchd
 ``` python
   34374 ?        00:00:00 ovsdb-server
   34377 ?        00:00:00 ovs-vswitchd
