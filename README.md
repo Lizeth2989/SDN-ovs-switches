@@ -30,21 +30,27 @@ To pull images from Docker hub. Let's pull a basic Ubuntu
 docker pull ubuntu
 ```
 
-Remove an imagen 
+In case of you want to delete an imagen 
 ``` python
 sudo docker rmi <id-of-image>
 ```
-## Remove a docker container
+To delete a docker container
 ``` python
 sudo docker rm -f <id-of-container>	
 ```
+
+# To run and execute a container with the image
+To run a docker with an specific image
 ``` python
 sudo docker run -itd --name=sw-ovs10 ubuntu
 ```
+
+To exec the container image 
 ``` python
 sudo docker exec -it sw-ovs10  /bin/bash
 ```
-## Installing OVS switches - openvirtualswitch.org
+## Install libraries - openvirtualswitch.org
+
 ``` python
 apt-get update
 apt-get install python3-pip git python-pip vim 
@@ -55,32 +61,34 @@ apt-get install -y automake autoconf gcc uml-utilities libtool build-essential p
 apt-get install -y nvidia-modprobe
 apt-get install -y libsqlite3-dev module-assistant 
 ```
-## Check your kernel 
+## Check the kernel 
 ``` python
 uname -r
 uname -a
 cd  /lib/modules/
 ls 
 ```
+
+Install the linux headers and image of your kernel 
 ``` python
 apt-get install -y libssl-dev iproute2 tcpdump linux-headers-`uname -r`  linux-image-`uname -r` uml-utilities libelf-dev
 apt-get install -y libssl-dev iproute2 tcpdump linux-headers-5.4.0-81-generic linux-image-5.4.0-81-generic uml-utilities libelf-dev 
 ```
-------------------
-JAVA
+
+Installing Java
 ``` python
 apt-get install -y openjdk-8-jre openjdk-8-jdk
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 ```
 
-## Download the version
+## Installing SDN OVS 
 ``` python
 wget https://www.openvswitch.org/releases/openvswitch-2.15.0.tar.gz
-```
-``` python
 tar xf openvswitch-2.15.0.tar.gz
 cd /home/SDN-LIZ/openvswitch-2.15.0
 ```
+
+## Additional libraries 
 ``` python
  modprobe gre
  modprobe nf_conntrack
@@ -91,6 +99,7 @@ cd /home/SDN-LIZ/openvswitch-2.15.0
  modprobe nf_nat_ipv6
  modprobe nf_nat_ipv4 
  ```
+ Make sure you run the kernel you want
 ``` python
 cd /home/SDN-LIZ/openvswitch-2.15.0
 ./configure --with-linux=/lib/modules/5.4.0-81-generic/build 
@@ -104,12 +113,10 @@ make modules_install
 /sbin/modprobe openvswitch
 mkdir -p /usr/local/etc/openvswitch
 mkdir -p /usr/local/var/run/openvswitch
-```
-``` python
 ovsdb-tool create /usr/local/etc/openvswitch/conf.db ./vswitchd/vswitch.ovsschema
 export PATH=$PATH:/usr/local/share/openvswitch/scripts
 ```
-***ovsdb-server
+Ovsdb-server
 ``` python
 ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
                      --remote=db:Open_vSwitch,Open_vSwitch,manager_options \
@@ -118,35 +125,39 @@ ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
                      --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
                      --pidfile --detach
 ```
+Starting OVS daemon and DBB
 ``` python
 ovs-vsctl --no-wait init  
-```
-##start OVS daemon, DBB
-``` python
 ovs-vswitchd --pidfile --detach 
 ovs-ctl start
 ovs-ctl status
-## verify ovs kernel module is loaded
+```
+# To verify ovs kernel module is loaded
+``` python
 ovs-vsctl --version
 ovs-vsctl show
 lsmod | grep openvswitch 
 ps -ea | grep ovs
+ps -eaf | grep ovsdb-server
 ```
-
+Short-commands version
 ``` python
 /usr/share/openvswitch/scripts/ovs-ctl start
 ovsdb-server& 
 ovs-vswitchd& 
 ovs-vsctl&
-ps -eaf | grep ovsdb-server
+
 ```
+Make sure you obtain these two services up, the ovsdb-server andd ovs-vswitchd
 ``` python
   34374 ?        00:00:00 ovsdb-server
   34377 ?        00:00:00 ovs-vswitchd
 ```
 
  ## Restart/Delete previous versions
+ To restart, please delete conf.db file and dill the ports 
  ``` python
+ps -ea | grep ovs
 /etc/init.d/openvswitch-switch status
 /etc/init.d/openvswitch-switch restart
 rm -rvf /usr/local/etc/openvswitch/conf.db
@@ -154,7 +165,7 @@ rm -rvf /etc/openvswitch/conf.db
 kill -9 34064
 ```
 
-##Configure the interface
+## Configure the interface
 ``` python
 ovs-vsctl add-br foo
 ovs-vsctl add-port foo eth0
@@ -166,7 +177,8 @@ route add default gw 172.17.0.1 foo
 ovs-vsctl set-controller foo tcp:172.17.0.20:6633
 ovs-vsctl set bridge br0 stp_enable=true
 ```
-#Delete bridge 
+
+## Delete bridge 
 ``` python
 ovs-vsctl del-port foo eth0
 ovs-vsctl del-br foo
