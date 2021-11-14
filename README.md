@@ -1,16 +1,22 @@
-# SDN-ovs-switches
 How to install ovs in docker containers
 ------------------------------------
+
+Hey guys, here we have the step by step process to install OVS over docker containers. You can also use the same commands over any linux-virtual machines. 
+If you have any problem, please let me know. 
 
 ## Check if docker has been installed 
 ``` python
 docker --version
-sudo apt install docker.io
+```
+If you do not have it, please install dockers. 
+``` python
+sudo apt install docker.io 
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl status docker
 docker run hello-world
 ```
+
 
 
 sudo docker images 
