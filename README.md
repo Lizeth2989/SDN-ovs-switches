@@ -1,10 +1,10 @@
-How to install ovs in docker containers
+#How to install ovs in docker containers
 ------------------------------------
 
 Hey guys, here we have the step by step process to install OVS over docker containers. You can also use the same commands over any linux-virtual machines. 
 If you have any problem, please let me know. 
 
-## Check if docker has been installed 
+Check if docker has been installed 
 ``` python
 docker --version
 ```
