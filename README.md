@@ -1,8 +1,10 @@
-# How to install ovs in docker containers
+# How to install ovs in docker containers (SDN-OVS switches)
 
 
 Hey guys, here we have the step by step process to install OVS over docker containers. You can also use the same commands over any linux-virtual machines. 
-If you have any problem, please let me know. 
+If you have any problem, please let me know.
+
+Here the youtube tutorial: 
 
 Check if docker has been installed 
 ``` python
@@ -17,12 +19,16 @@ sudo systemctl status docker
 docker run hello-world
 ```
 
-
-
+# Basic Docker commands: to check images and docker containers lists
+``` python
 sudo docker images 
 sudo docker ps -a
+```
 
+# To pull images from Docker hub 
+``` python
 docker pull ubuntu
+```
 
 
 ## Remove an imagen 
@@ -176,6 +182,22 @@ sudo docker run -it --name=sw_ovs_20 liz-ovs:1.0.2 /bin/bash
 sudo docker run -itd --name=sw_ovs_20  --cap-add NET_ADMIN liz-ovs:1.0.2
  sudo docker exec -it sw_ovs_20 /bin/bash
 
+## How to download/pull our docker images from docker hub
+Docker container Image 1.0.1 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-81-generic)
+ ``` python
+docker push liz2906/liz_ovs:1.0.1
+```
+Docker container Image 1.0.2 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-81-generic, supervisord)
+ ``` python
+docker pull liz2906/liz_ovs_supervisord:1.0.2
+```
+Docker container Image 1.0.3 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-84-generic, supervisord)
+ ``` python
+docker pull liz2906/liz_ovs_supervisord:1.0.3
+```
 
+If you have any problem, let me know @EcuatorianaEnChina
+ 
 More information 
 https://docs.openvswitch.org/en/latest/intro/install/general/
+ 
