@@ -19,7 +19,7 @@ sudo systemctl status docker
 docker run hello-world
 ```
 
-# Basic Docker commands: to check images and docker containers lists
+## Basic Docker commands: to check images and docker containers lists
 ``` python
 sudo docker images 
 sudo docker ps -a
@@ -39,7 +39,7 @@ To delete a docker container
 sudo docker rm -f <id-of-container>	
 ```
 
-# To run and execute a container with the image
+## To run and execute a container with the image
 To run a docker with an specific image
 ``` python
 sudo docker run -itd --name=sw-ovs10 ubuntu
@@ -132,7 +132,7 @@ ovs-vswitchd --pidfile --detach
 ovs-ctl start
 ovs-ctl status
 ```
-# To verify ovs kernel module is loaded
+## To verify ovs kernel module is loaded
 ``` python
 ovs-vsctl --version
 ovs-vsctl show
@@ -154,8 +154,8 @@ Make sure you obtain these two services up, the ovsdb-server andd ovs-vswitchd
   34377 ?        00:00:00 ovs-vswitchd
 ```
 
- ## Restart/Delete previous versions
- To restart, please delete conf.db file and dill the ports 
+## Restart/Delete previous versions
+To restart, please delete conf.db file and dill the ports 
  ``` python
 ps -ea | grep ovs
 /etc/init.d/openvswitch-switch status
@@ -165,7 +165,25 @@ rm -rvf /etc/openvswitch/conf.db
 kill -9 34064
 ```
 
+## Delete bridge 
+``` python
+ovs-vsctl del-port foo eth0
+ovs-vsctl del-br foo
+```
+## To save a container image
+``` python
+sudo docker commit sw-ovs10 liz-ovs:1.0.2
+```
+
+## It allows you to change the bridge
+``` python
+sudo docker run -itd --name=sw_ovs_20  --cap-add NET_ADMIN liz-ovs:1.0.2
+sudo docker exec -it sw_ovs_20 /bin/bash
+```
+
 ## Configure the interface
+Change to your IP and check the Openflow version you need
+
 ``` python
 ovs-vsctl add-br foo
 ovs-vsctl add-port foo eth0
@@ -178,21 +196,6 @@ ovs-vsctl set-controller foo tcp:172.17.0.20:6633
 ovs-vsctl set bridge br0 stp_enable=true
 ```
 
-## Delete bridge 
-``` python
-ovs-vsctl del-port foo eth0
-ovs-vsctl del-br foo
-```
-#Save image
-``` python
-sudo docker commit sw-ovs10 liz-ovs:1.0.2
-```
-
-#It allows you to change the bridge
-``` python
-sudo docker run -itd --name=sw_ovs_20  --cap-add NET_ADMIN liz-ovs:1.0.2
-sudo docker exec -it sw_ovs_20 /bin/bash
-```
 ## How to download/pull our docker images from docker hub
 Docker container Image 1.0.1 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-81-generic)
  ``` python
