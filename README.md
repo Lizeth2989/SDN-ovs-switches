@@ -205,7 +205,7 @@ Docker container Image 1.0.2 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-81-generic
  ``` python
 docker pull liz2906/liz_ovs_supervisord:1.0.2
 ```
-Docker container Image 1.0.3 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-84-generic, supervisord)
+Docker container Image 1.0.3 (Openvswitch-2.15.0, Ubuntu kernel 5.4.0-88-generic, supervisord)
  ``` python
 docker pull liz2906/liz_ovs_supervisord:1.0.3
 ```
